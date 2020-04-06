@@ -4,7 +4,7 @@ function add_admin($username, $password) {
  $hash = password_hash($password, PASSWORD_DEFAULT); 
  $query = 'INSERT INTO administrators (username, password) 
            VALUES (:username, :password)'; $statement = $db->prepare($query); 
- $statement->bindValue(':username', $email); 
+ $statement->bindValue(':username', $username); 
  $statement->bindValue(':password', $hash); 
  $statement->execute(); $statement->closeCursor();
 }
