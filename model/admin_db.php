@@ -18,6 +18,7 @@ function is_valid_admin_login($username, $password) {
  $statement->execute(); 
  $row = $statement->fetch(); 
  $statement->closeCursor(); 
+ //TODO check if null (user ternary statement)
  $hash = $row['password'];
  return password_verify($password, $hash); 
 } 
