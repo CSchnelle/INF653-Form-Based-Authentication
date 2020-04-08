@@ -32,7 +32,7 @@
                 <div>
                     <input type="text" class="demo-input-box"
                         name="username"
-                        value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">
+                        value="">
                 </div>
             </div>
                 <div class="field-column">
@@ -59,11 +59,11 @@
                 $lifetime = 60 * 60 * 24 * 7; //one week
                 session_set_cookie_params($lifetime, '/');
                 session_start();
-                $_SESSION['userid'] = $firstname;
+                $_SESSION['userid'] = $username;
                 
         ?>
        
-            <h1>Thank you for registering, <?php echo $firstname ?>!</h1>
+            <h1>Thank you for registering, <?php echo $username ?>!</h1>
             <p>
                 <a href="index.php">Click here</a> to view our vehicle list.
             </p>
