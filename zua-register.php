@@ -26,11 +26,11 @@
 
     <body>
         <?php 
-        session_start();
-        if (isset($_POST ['submit'])) 
-        {
-            $username = $_POST['username'];
-            echo "You entered username: <b> $username </b>"
+       // session_start();
+        //if (isset($_POST ['submit'])) 
+       // {
+       //     $username = $_POST['username'];
+        //    echo "You entered username: <b> $username </b>"
         }
         ?>
                 
@@ -65,7 +65,7 @@
         
       <!--password-checks-->
         
-        <?php
+       <?php
        // $error_username
         $error_password = "Please enter a valid password; at least one uppercase letter, one lowercase letter, and one number. 8 characters in length.";
         $error_confirm_password = "Passwords do not match";
