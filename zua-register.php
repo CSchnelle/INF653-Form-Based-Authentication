@@ -27,7 +27,7 @@
     <body>
             <?php if ($username == NULL) { ?>
                    
-            <form method="post" id="register_form" action="">
+            <form method="post" id="register_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <div class="field-column">
                 <label>Username</label>
                 <div>
