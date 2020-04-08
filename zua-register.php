@@ -51,6 +51,10 @@
                 
                 <input type="submit" value="Register" class="button blue">
             </form>
+        
+        <p>
+            Click here to sign in if you've already registered. <a href="zua-login.php">Sign in</a>
+        </p>
 
         <?php } else { 
 
