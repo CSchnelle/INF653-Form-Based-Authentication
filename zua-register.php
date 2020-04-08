@@ -25,19 +25,35 @@
     </header>
 
     <body>
-        <?php 
-        if (isset($_POST ['submit'])) { 
-        $username = $_POST['username'];
-            echo "You entered username: <b> $username </b>"
-        }
-        ?>
                 
-            <form action="" method="get" id="register_form">
-                <label for="firstname">Please enter your firstname:</label>
-                <input type="text" id="firstname" name="firstname" maxlength="50" required>
+            <form method="post" id="register_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <div class="field-column">
+                <label>Username</label>
+                <div>
+                    <input type="text" class="demo-input-box"
+                        name="username"
+                        value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">
+                </div>
+            </div>
+                <div class="field-column">
+                <label>Password</label>
+                <div><input type="password" class="demo-input-box"
+                    name="password" value=""></div>
+            </div>
+            <div class="field-column">
+                <label>Confirm Password</label>
+                <div>
+                    <input type="password" class="demo-input-box"
+                        name="confirm_password" value="">
+                </div>
+            </div>
+                
                 <input type="submit" value="Register" class="button blue">
             </form>
-
+        
+        <p>
+            Click here to sign in if you've already registered. <a href="zua-login.php">Sign in</a>
+        </p>
         <?php } else { 
 
                 $lifetime = 60 * 60 * 24 * 7; //one week
@@ -46,6 +62,7 @@
                 $_SESSION['userid'] = $firstname;
                 
         ?>
+       
             <h1>Thank you for registering, <?php echo $firstname ?>!</h1>
             <p>
                 <a href="index.php">Click here</a> to view our vehicle list.
