@@ -7,7 +7,9 @@ $password = '';
  <?php
 
 // if is_valid_admin is not set, return to login page
-	if (!isset($_SESSION['is_valid_admin'])) { 
+	if (isset($_SESSION['is_valid_admin'])) { 
+		header("Location: zua-admin.php");
+	} else { 
 		header("Location: zua-login.php");
 } 
 ?>
