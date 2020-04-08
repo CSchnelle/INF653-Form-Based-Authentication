@@ -31,7 +31,13 @@
 
     <body>
             <?php if ($username == NULL) { ?>
-                   
+            <?php
+                if(isset($_POST['submit'])) 
+                { 
+                    $username = $_POST['username'];
+                    $password = $_POST['password'];
+                }
+                                          ?>
             <form method="post" id="register_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <div class="field-column">
                 <label>Username</label>
