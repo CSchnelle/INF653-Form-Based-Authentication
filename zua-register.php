@@ -1,6 +1,11 @@
-<?php 
-    $username = filter_input(INPUT_GET, 'username');
+<?php include 'header.php';
+    //add admin,v admin, and database
 ?>
+
+<?php
+    //start a new session
+     session_start();
+     ?>
 
 <!DOCTYPE html>
 <html>
