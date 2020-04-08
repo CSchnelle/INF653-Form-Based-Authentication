@@ -2,7 +2,10 @@
 <?php
     //start a new session
      session_start();
+    //include admin_db to use functions
      require_once('model/admin_db.php');
+    //include database to store new admin
+     require_once('model/database.php');
      //require_once('util/valid_admin.php');
      ?>
 
@@ -57,7 +60,7 @@
                 <input type="submit" value="Register" class="button blue">
             </form>
            <?php
-                if(isset($_POST['Register'])) 
+                if(isset($_POST['submit'])) 
                 { 
                     $username = $_POST['username'];
                     $password = $_POST['password'];
@@ -72,10 +75,12 @@
         ?>
         
        <?php
+        //error message variables (still need to work on)
         $error_username = "Please enter a valid username 6 characters in length.";
         $error_password = "Please enter a valid password; at least one uppercase letter, one lowercase letter, and one number. 8 characters in length.";
         $error_confirm_password = "Passwords do not match";
         
+        //regexp checks
         $uppercase = preg_match('@[A-Z]@', $password);
         $lowercase = preg_match('@[a-z]@', $password);
         $number    = preg_match('@[0-9]@', $password);
@@ -108,10 +113,13 @@
             }
         ?>
         <?php
+    //checks if error variables are empty, if all three are empty then call add_admin function
             if(empty($error_username) && ($error_password) && ($error_confirm_password)) {
                 add_admin($username, $password);
                 echo "Admin Account Created.";
+                //send user to admin page
                 include ('zua-admin.php');
+                //if not empty, return to register page
               } else { include('zua-register.php');
                }
           ?>
