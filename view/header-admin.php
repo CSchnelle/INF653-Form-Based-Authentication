@@ -13,7 +13,6 @@
 <body>
     <header>
         <h1>Zippy Admin</h1>
-           <header>
         <div id="pageTitle">
             <h1>Zippy Used Autos</h1>
         </div>
@@ -34,4 +33,4 @@
             <?php } ?>
         </div>
     </header>
-    </header>
+    </body>
