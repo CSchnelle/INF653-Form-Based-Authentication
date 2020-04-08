@@ -40,7 +40,7 @@
             <div class="field-column">
                 <label>Password</label>
                 <div><input type="text" class="demo-input-box"
-                    name="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'];">"</div>
+                    name="password" value=""></div>
             </div>
             <div class="field-column">
                 <label>Confirm Password</label>
