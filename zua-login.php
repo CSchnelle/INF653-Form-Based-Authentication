@@ -48,7 +48,7 @@ $_SESSION['is_valid_admin'] = True;
                     name="password" value=""></div>
             </div>
        
-                <input type="submit" value="Register" class="button blue">
+                <input type="submit" value="Login" class="button blue">
             </form>
                 
         <?php } else { 
