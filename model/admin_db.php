@@ -21,8 +21,9 @@ function is_valid_admin_login($username, $password) {
  
  //check if null (ternary statement)
  if(isset($_POST['submit'])) {
-  $username =  isset($_POST['username']) ? $_POST['username'] : null;
   $password = isset($_POST['password']) ? $_POST['password'] : null;
+ } else {
+  $hash = $row['password'];
  } 
  return password_verify($password, $hash);  
 }
