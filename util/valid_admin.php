@@ -17,8 +17,9 @@ if (!is_valid_admin_login($username, $password)) {
 
 
  <?php
-// make sure the user is logged in as a valid administrator 
+
+// if is_valid_admin is not set, return to login page
 	if (!isset($_SESSION['is_valid_admin'])) { 
-		header("Location: {$_SERVER['zua-login.php']};);
+		header("Location: zua-login.php");
 } 
 ?>
