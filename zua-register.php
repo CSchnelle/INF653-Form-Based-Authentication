@@ -27,9 +27,28 @@
     <body>
         <?php if ($firstname == NULL) { ?>
                 
-            <form action="" method="get" id="register_form">
-                <label for="firstname">Please enter your firstname:</label>
-                <input type="text" id="firstname" name="firstname" maxlength="50" required>
+            <form action="" method="post" id="register_form">
+                <div class="field-column">
+                <label>Username</label>
+                <div>
+                    <input type="text" class="demo-input-box"
+                        name="username"
+                        value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">
+                </div>
+            </div>
+                <div class="field-column">
+                <label>Password</label>
+                <div><input type="password" class="demo-input-box"
+                    name="password" value=""></div>
+            </div>
+            <div class="field-column">
+                <label>Confirm Password</label>
+                <div>
+                    <input type="password" class="demo-input-box"
+                        name="confirm_password" value="">
+                </div>
+            </div>
+                
                 <input type="submit" value="Register" class="button blue">
             </form>
 
