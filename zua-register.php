@@ -3,7 +3,7 @@
     //start a new session
      session_start();
      require_once('model/admin_db.php');
-     require_once('util/valid_admin.php');
+     //require_once('util/valid_admin.php');
      ?>
 
 <!DOCTYPE html>
