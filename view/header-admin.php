@@ -13,4 +13,25 @@
 <body>
     <header>
         <h1>Zippy Admin</h1>
+           <header>
+        <div id="pageTitle">
+            <h1>Zippy Used Autos</h1>
+        </div>
+        <div id="pageLinks">
+            <?php 
+                session_start();
+                if (!isset($_SESSION['userid'])) {
+            ?>
+                <p>
+                    <a href="zua-register.php">Register</a>
+                </p>
+            <?php } else { 
+                $userid = $_SESSION['userid'];
+            ?>
+                <p>
+                    Welcome <?php echo $userid ?>! (<a href="logout.php">Sign Out</a>)
+                </p>
+            <?php } ?>
+        </div>
+    </header>
     </header>
