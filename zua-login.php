@@ -1,4 +1,4 @@
-<?php include 'header.php';
+<?php include 'view/header.php';
 ?>
 <?php
 //start a new session
