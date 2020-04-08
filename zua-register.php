@@ -61,7 +61,33 @@
                 $_SESSION['userid'] = $username;
                 
         ?>
-       
+       <?php
+       // $error_username
+        $error_password = "Please enter a valid password; at least one uppercase letter, one lowercase letter, and one number. 8 characters in length.";
+        $error_confirm_password = "Passwords do not match";
+        
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        
+        //checks if matches confirm password variable
+        if ($_POST['password'] != $_POST['confirm_password'])
+            echo $error_confirm_password;
+        
+        //posts password if match
+        //else if ($_POST['password'] == $_POST['confirm_password'])
+         //   echo $_POST['password'];
+        
+        //checks if empty
+        else if (empty ($_POST['password']))
+            echo $error_password;
+        //checks if one uppercase, one lower case, one number, and password length at least 8 char
+        else if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
+            echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one lower case letter.';
+        }else{
+            echo $_POST['password'];        
+        }
+        ?>
             <h1>Thank you for registering, <?php echo $username ?>!</h1>
             <p>
                 <a href="index.php">Click here</a> to view our vehicle list.
