@@ -22,6 +22,8 @@
             ?>
                 <p>
                     <a href="register.php">Register</a>
+                    <br>
+                    <a href="zua-login.php">Login</a>
                 </p>
             <?php } else { 
                 $userid = $_SESSION['userid'];
