@@ -95,8 +95,6 @@
         
        <!--username-checks--> 
         
-        <?php
-           
         <?php } else { 
 
                 $lifetime = 60 * 60 * 24 * 7; //one week
