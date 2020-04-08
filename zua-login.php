@@ -1,5 +1,7 @@
-<?php 
-    $username = filter_input(INPUT_GET, 'username');
+<?php include 'header.php';
+?>
+<?php
+session_start();
 ?>
 
 <!DOCTYPE html>
