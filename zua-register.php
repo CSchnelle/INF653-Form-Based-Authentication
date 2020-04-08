@@ -30,13 +30,7 @@
 
     <body>
             <?php if ($username == NULL) { ?>
-            <?php
-                if(isset($_POST['submit'])) 
-                { 
-                    $username = $_POST['username'];
-                    $password = $_POST['password'];
-                }
-                                          ?>
+         
             <form method="post" id="register_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <div class="field-column">
                 <label>Username</label>
@@ -62,15 +56,21 @@
                 
                 <input type="submit" value="Register" class="button blue">
             </form>
-        
+           <?php
+                if(isset($_POST['Register'])) 
+                { 
+                    $username = $_POST['username'];
+                    $password = $_POST['password'];
+                }
+                                          ?>
         <?php } else { 
 
                 $lifetime = 60 * 60 * 24 * 7; //one week
                 session_set_cookie_params($lifetime, '/');
                 session_start();
                 $_SESSION['userid'] = $username;
-                
         ?>
+        
        <?php
         $error_username = "Please enter a valid username 6 characters in length.";
         $error_password = "Please enter a valid password; at least one uppercase letter, one lowercase letter, and one number. 8 characters in length.";
@@ -107,7 +107,13 @@
                 echo $_POST['username'];
             }
         ?>
-     
+        <?php
+            if(empty($error_username) && ($error_password) && ($error_confirm_password))
+                add_admin($username, $password);
+                echo "Admin Account Created.";
+                include ('zua-admin.php');
+        } else { include('zua-register.php');
+    ?>
             <h1>Thank you for registering, <?php echo $username ?>!</h1>
             <p>
                 <a href="index.php">Click here</a> to view our vehicle list.
