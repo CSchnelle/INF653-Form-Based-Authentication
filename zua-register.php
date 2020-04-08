@@ -25,7 +25,13 @@
     </header>
 
     <body>
-        <?php if ($firstname == NULL) { ?>
+        <?php 
+        session_start();
+        if (isset($_POST ['submit'])) { 
+        $username = $_POST['username'];
+            echo "You entered username: <b> $username </b>"
+        }
+        ?>
                 
             <form action="" method="get" id="register_form">
                 <label for="firstname">Please enter your firstname:</label>
