@@ -1,5 +1,3 @@
-<?php include 'view/header.php';
-?>
 <?php
 //start a new session
 session_start();
