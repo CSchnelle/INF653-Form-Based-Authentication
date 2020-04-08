@@ -61,7 +61,36 @@
         <p>
             Click here to sign in if you've already registered. <a href="zua-login.php">Sign in</a>
         </p>
-
+        
+      <!--password-checks-->
+        
+        <?php
+       // $error_username
+        $error_password = "Please enter a valid password; at least one uppercase letter, one lowercase letter, and one number. 8 characters in length.";
+        $error_confirm_password = "Passwords do not match";
+        //checks if matches confirm password variable
+        if ($_POST['password'] != $_POST['confirm_password'])
+            echo $error_confirm_password;
+        //posts password if match
+        //else if ($_POST['password'] == $_POST['confirm_password'])
+         //   echo $_POST['password'];
+        //checks if empty
+        else if (empty ($_POST['password']))
+            echo $error_password;
+        else if (strlen($password) < 8) {
+            echo $error_password;
+        //else if(
+        //must contain a number (?=.*\d)
+        //must contain uppercase letter (?=.*[A-Z])
+        //must contain lowercase letter (?=.*[a-z])
+        //regexp
+        //((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})
+        ?>
+        
+       <!--username-checks--> 
+        
+        <?php
+           
         <?php } else { 
 
                 $lifetime = 60 * 60 * 24 * 7; //one week
