@@ -25,9 +25,15 @@
     </header>
 
     <body>
-        <?php if ($firstname == NULL) { ?>
+        <?php 
+        if (isset($_POST ['submit'])) 
+        {
+            $username = $_POST['username'];
+            echo "You entered username: <b> $username </b>"
+        }
+        ?>
                 
-            <form action="" method="post" id="register_form">
+            <form method="post" id="register_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <div class="field-column">
                 <label>Username</label>
                 <div>
@@ -61,10 +67,10 @@
                 $lifetime = 60 * 60 * 24 * 7; //one week
                 session_set_cookie_params($lifetime, '/');
                 session_start();
-                $_SESSION['userid'] = $firstname;
+                $_SESSION['userid'] = $username;
                 
         ?>
-            <h1>Thank you for registering, <?php echo $firstname ?>!</h1>
+            <h1>Thank you for registering, <?php echo $username ?>!</h1>
             <p>
                 <a href="index.php">Click here</a> to view our vehicle list.
             </p>
