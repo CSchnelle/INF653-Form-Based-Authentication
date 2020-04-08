@@ -26,12 +26,12 @@
 
     <body>
         <?php 
-        session_start();
-        if (isset($_POST ['submit'])) 
-        {
-            $username = $_POST['username'];
-            echo "You entered username: <b> $username </b>"
-        }
+      //  session_start();
+      //  if (isset($_POST ['submit'])) 
+     //   {
+      //      $username = $_POST['username'];
+      //      echo "You entered username: <b> $username </b>"
+     //   }
         ?>
                 
             <form method="post" id="register_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
