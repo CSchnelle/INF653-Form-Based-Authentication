@@ -1,7 +1,10 @@
 <?php include 'header.php';
 ?>
 <?php
+//start a new session
 session_start();
+//assign variable as true
+$_SESSION['is_valid_admin'] = True;
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +41,7 @@ session_start();
                         value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">
                 </div>
             </div>
-            
+            <br>
             <div class="field-column">
                 <label>Password</label>
                 <div><input type="text" class="demo-input-box"
@@ -47,12 +50,7 @@ session_start();
        
                 <input type="submit" value="Register" class="button blue">
             </form>
-        
-        
-        //Start a new session
-        //Assign the $_SESSION['is_valid_admin'] variable a value of true.
-        //Redirect the user to the admin home (zua-admin.php)
-        
+                
         <?php } else { 
 
                 $lifetime = 60 * 60 * 24 * 7; //one week
