@@ -67,7 +67,7 @@
                 
         ?>
        <?php
-       // $error_username
+        $error_username = "Please enter a valid username 6 characters in length.";
         $error_password = "Please enter a valid password; at least one uppercase letter, one lowercase letter, and one number. 8 characters in length.";
         $error_confirm_password = "Passwords do not match";
         
@@ -93,6 +93,16 @@
             echo $_POST['password'];        
         }
         ?>
+        <?php
+            if(empty ($_POST['username']))
+                echo $error_username;
+            else if(strlen($username) < 6) {
+                echo $error_username;
+            } else {
+                echo $_POST['username'];
+            }
+        ?>
+     
             <h1>Thank you for registering, <?php echo $username ?>!</h1>
             <p>
                 <a href="index.php">Click here</a> to view our vehicle list.
