@@ -26,13 +26,13 @@
 
     <body>
                 
-            <form method="post" id="register_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <form method="post" id="register_form" action="<?php// echo $_SERVER['PHP_SELF']; ?>">
                 <div class="field-column">
                 <label>Username</label>
                 <div>
                     <input type="text" class="demo-input-box"
                         name="username"
-                        value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">
+                        value="<?php //if(isset($_POST['username'])) echo $_POST['username']; ?>">
                 </div>
             </div>
                 <div class="field-column">
