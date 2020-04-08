@@ -1,6 +1,3 @@
-<?php include 'header.php';
-    //add admin,v admin, and database
-?>
 
 <?php
     //start a new session
