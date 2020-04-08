@@ -32,20 +32,20 @@
                 <label>Username</label>
                 <div>
                     <input type="text" class="demo-input-box"
-                        name="userName"
-                        value="<?php if(isset($_POST['userName'])) echo $_POST['userName']; ?>">
+                        name="username"
+                        value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">
                 </div>
             </div>
             
             <div class="field-column">
                 <label>Password</label>
-                <div><input type="password" class="demo-input-box"
+                <div><input type="text" class="demo-input-box"
                     name="password" value=""></div>
             </div>
             <div class="field-column">
                 <label>Confirm Password</label>
                 <div>
-                    <input type="password" class="demo-input-box"
+                    <input type="text" class="demo-input-box"
                         name="confirm_password" value="">
                 </div>
             </div>
