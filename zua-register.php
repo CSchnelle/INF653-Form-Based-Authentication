@@ -1,5 +1,5 @@
 <?php 
-    $firstname = filter_input(INPUT_GET, 'firstname');
+    $username = filter_input(INPUT_GET, 'username');
 ?>
 
 <!DOCTYPE html>
