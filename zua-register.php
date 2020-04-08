@@ -108,12 +108,13 @@
             }
         ?>
         <?php
-            if(empty($error_username) && ($error_password) && ($error_confirm_password))
+            if(empty($error_username) && ($error_password) && ($error_confirm_password)) {
                 add_admin($username, $password);
                 echo "Admin Account Created.";
                 include ('zua-admin.php');
-        } else { include('zua-register.php');
-    ?>
+              } else { include('zua-register.php');
+               }
+          ?>
             <h1>Thank you for registering, <?php echo $username ?>!</h1>
             <p>
                 <a href="index.php">Click here</a> to view our vehicle list.
