@@ -108,7 +108,7 @@
                 <a href="index.php">Click here</a> to view our vehicle list.
             </p>
             <br>
-        <?php } ?>
+        
     </body>
 
 <?php include('view/footer.php'); ?>
