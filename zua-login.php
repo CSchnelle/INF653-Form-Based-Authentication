@@ -1,8 +1,13 @@
 <?php
-//start a new session
-session_start();
-//assign variable as true
-$_SESSION['is_valid_admin'] = True;
+    //include admin_db to use functions
+     require_once('model/admin_db.php');
+    //include database to store new admin
+     require_once('model/database.php');
+     require_once('util/valid_admin.php');
+    //start a new session
+      session_start();
+    //assign variable as true
+    $_SESSION['is_valid_admin'] = True;
 ?>
 
 <!DOCTYPE html>
