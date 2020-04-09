@@ -86,17 +86,18 @@
         $lowercase = preg_match('@[a-z]@', $password);
         $number    = preg_match('@[0-9]@', $password);
         
+        
         //checks if matches confirm password variable
         if ($_POST['password'] != $_POST['confirm_password'])
             echo $error_confirm_password;
-        
+      
         //posts password if match
-        //else if ($_POST['password'] == $_POST['confirm_password'])
-         //   echo $_POST['password'];
+      //  else if ($_POST['password'] == $_POST['confirm_password'])
+       //     echo $_POST['password'];
         
         //checks if empty
-       // else if (empty ($_POST['password']))   //this produces an infinite loop of error messages
-       //     echo $error_password;
+       else if (!isset ($_POST['password']))
+            echo $error_password;
         //checks if one uppercase, one lower case, one number, and password length at least 8 char
         else if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
             echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one lower case letter.';
@@ -104,10 +105,11 @@
             echo $_POST['password'];        
         }
         ?>
+        
         <?php
-           // if(empty ($_POST['username']))
-           //     echo $error_username;
-           // else                              //this produces an infinite loop of error msgs.
+            if(!isset ($_POST['username']))
+                echo $error_username;
+           // else                            
             if(strlen($username) < 6) {
                 echo $error_username;
             } else {
