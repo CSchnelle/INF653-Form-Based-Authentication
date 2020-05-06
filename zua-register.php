@@ -5,7 +5,7 @@
      require_once('model/admin_db.php');
      require('model/database.php');
      //require('util/valid_admin.php');
-     ?>
+     
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = trim(filter_input(INPUT_POST, 'username'));
         $password = trim(filter_input(INPUT_POST, 'password'));
