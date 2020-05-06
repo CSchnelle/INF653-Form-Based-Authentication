@@ -1,74 +1,47 @@
 <?php
-    //include admin_db to use functions
-     require_once('model/admin_db.php');
-    //include database to store new admin
-     require_once('model/database.php');
-     require_once('util/valid_admin.php');
-    //start a new session
-      session_start();
-    //assign variable as true
-    $_SESSION['is_valid_admin'] = True;
-?>
+    require('model/database.php'); 
+    require('model/admin_db.php'); 
 
-<!DOCTYPE html>
-<html>
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $username = trim(filter_input(INPUT_POST, 'username'));
+        $password = trim(filter_input(INPUT_POST, 'password'));
 
-<!-- the head section -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zippy Used Autos</title>
-    <link rel="stylesheet" type="text/css" href="view/css/main.css" />
-</head>
+        if (empty($username)) $error_username = 'Please enter your username.';
+        if (empty($password)) $error_password = 'Please enter your password.';
 
-<!-- the body section -->
-<body>
-    <header>
-        <div id="pageTitle">
-            <h1>Zippy Used Autos</h1>
-        </div>
-        <div id="pageLinks">
-            <p></p>
-        </div>
-    </header>
-
-    <body>
-            <?php if ($username == NULL) { ?>
-                   
-            <form method="post" id="register_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                <div class="field-column">
-                <label>Username</label>
-                <div>
-                    <input type="text" class="demo-input-box"
-                        name="username"
-                        value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">
-                </div>
-            </div>
-            <br>
-            <div class="field-column">
-                <label>Password</label>
-                <div><input type="text" class="demo-input-box"
-                    name="password" value=""></div>
-            </div>
-       
-                <input type="submit" value="Login" class="button blue">
-            </form>
-                
-        <?php } else { 
-
-                $lifetime = 60 * 60 * 24 * 7; //one week
-                session_set_cookie_params($lifetime, '/');
+        if (empty($error_username) && empty($error_password)) {
+            if (is_valid_admin_login($username, $password)) {
+                //must start session to set a session variable
                 session_start();
-                $_SESSION['userid'] = $username;
-                
-        ?>
-     
-            <h1>Thank you for registering, <?php echo $username ?>!</h1>
-            <p>
-                <a href="index.php">Click here</a> to view our vehicle list.
-            </p>
-            <br>
-        <?php } ?>
-    </body>
-
-<?php include('view/footer.php'); ?>
+                $_SESSION['is_valid_admin'] = true;
+                //go to admin home
+                header("Location: zua-admin.php");
+            } else {
+                $error_username = 'Username and password do not validate.';
+            }
+        }
+    }
+?>
+<?php include 'view/header-admin.php'; ?>
+<main id="admin-login">
+    <h2>Please fill in your credentials to login.</h2>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div>
+            <label for="username">Username:<sup>*</sup></label>
+            <input type="text" name="username" id="username" autofocus>
+            <span class="error_message"><?php if(!empty($error_username)) echo $error_username; ?></span>
+        </div>
+        <div>
+            <label for="password">Password:<sup>*</sup></label>
+            <input type="password" name="password" id="password">
+            <span class="error_message"><?php if(!empty($error_password)) echo $error_password; ?></span>
+        </div>
+        <div>
+            <input type="submit" class="button blue" value="Sign In">
+        </div>
+        <div>
+            <p><sup>*</sup> Indicates a required field.</p>
+        </div>
+    </form>
+</main>
+<?php include 'view/footer.php'; ?>
