@@ -2,137 +2,80 @@
 <?php
     //start a new session
      session_start();
-    //include admin_db to use functions
      require_once('model/admin_db.php');
-    //include database to store new admin
-     require_once('model/database.php');
-     //require_once('util/valid_admin.php');
+     require('model/database.php');
+     require('util/valid_admin.php');
      ?>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $username = trim(filter_input(INPUT_POST, 'username'));
+        $password = trim(filter_input(INPUT_POST, 'password'));
+        $password2 = trim(filter_input(INPUT_POST, 'confirm_password'));
 
-<!DOCTYPE html>
-<html>
-
-<!-- the head section -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zippy Used Autos</title>
-    <link rel="stylesheet" type="text/css" href="view/css/main.css" />
-</head>
-
-<!-- the body section -->
-<body>
-    <header>
-        <div id="pageTitle">
-            <h1>Zippy Used Autos</h1>
-        </div>
-        <div id="pageLinks">
-            <p></p>
-        </div>
-    </header>
-
-    <body>
-            <?php if ($username == NULL) { ?>
-         
-            <form method="post" id="register_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                <div class="field-column">
-                <label>Username</label>
-                <div>
-                    <input type="text" class="demo-input-box"
-                        name="username"
-                        value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">
-                </div>
-            </div>
-            
-            <div class="field-column">
-                <label>Password</label>
-                <div><input type="text" class="demo-input-box"
-                    name="password" value=""></div>
-            </div>
-            <div class="field-column">
-                <label>Confirm Password</label>
-                <div>
-                    <input type="text" class="demo-input-box"
-                        name="confirm_password" value="">
-                </div>
-            </div>
-                
-                <input type="submit" value="Register" class="button blue">
-            </form>
-           <?php
-                if(isset($_POST['submit'])) 
-                { 
-                    $username = $_POST['username'];
-                    $password = $_POST['password'];
-                    $confirm_password = $_POST['confirm_password'];
-                }
-                                          ?>
-        <?php } else { 
-
-                $lifetime = 60 * 60 * 24 * 7; //one week
-                session_set_cookie_params($lifetime, '/');
-                session_start();
-                $_SESSION['userid'] = $username;
-        ?>
-        
-       <?php
-        //error message variables (still need to work on)
-        $error_username = "Please enter a valid username 6 characters in length.";
-        $error_password = "Please enter a valid password; at least one uppercase letter, one lowercase letter, and one number. 8 characters in length.";
-        $error_confirm_password = "Passwords do not match";
-        
-        //regexp checks
-        $uppercase = preg_match('@[A-Z]@', $password);
-        $lowercase = preg_match('@[a-z]@', $password);
-        $number    = preg_match('@[0-9]@', $password);
-        
-        
-        //checks if matches confirm password variable
-        if ($_POST['password'] != $_POST['confirm_password'])
-            echo $error_confirm_password;
-      
-        //posts password if match
-      //  else if ($_POST['password'] == $_POST['confirm_password'])
-       //     echo $_POST['password'];
-        
-        //checks if empty
-       else if (!isset ($_POST['password']))
-            echo $error_password;
-        //checks if one uppercase, one lower case, one number, and password length at least 8 char
-        else if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
-            echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one lower case letter.';
-        }else{
-            echo $_POST['password'];        
+        //check for empty username
+        if (empty($username)) {
+            $error_username = "Please enter a username.";
+        } else if (strlen($username) < 6) {
+            $error_username = "Username must be six characters or longer.";
+        } else { 
+            // see if the username already exists
+            $query = "SELECT COUNT(*) FROM administrators WHERE username = :username";
+            $statement = $db->prepare($query);
+            $statement->bindParam(':username', $username);
+            $statement->execute();
+            // fetchColumn() returns the number of rows from the SELECT COUNT(*) 
+            // query above. 0 is falsy. Our if statement below checks IF true.
+            if ($statement->fetchColumn()) {
+                $error_username = "The username you entered is already taken.";
+            } 
         }
-        ?>
-        
-        <?php
-            if(!isset ($_POST['username']))
-                echo $error_username;
-           // else                            
-            if(strlen($username) < 6) {
-                echo $error_username;
-            } else {
-                echo $_POST['username'];
-            }
-        ?>
-        <?php
-    //checks if error variables are empty, if all three are empty then call add_admin function
-            if(empty($error_username) && ($error_password) && ($error_confirm_password)) {
-                add_admin($username, $password);
-                echo "Admin Account Created.";
-                //send user to admin page
-                include ('zua-admin.php');
-                //if not empty, return to register page
-              } else { include('zua-register.php');
-               }
-          ?>
-            <h1>Thank you for registering, <?php echo $username ?>!</h1>
-            <p>
-                <a href="index.php">Click here</a> to view our vehicle list.
-            </p>
-            <br>
-        <?php } ?>
-    </body>
 
-<?php include('view/footer.php'); ?>
+        //check for empty password
+        if (empty($password)) $error_password = "Please enter a password.";
+        
+        //check password against regex
+        $res = array("options"=>array("regexp"=>"/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/"));
+        if(!filter_var($password, FILTER_VALIDATE_REGEXP, $res)) {
+            $error_password = "Your password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters";
+        }
+        //check if password and password confirmation match
+        if ($password != $password2) {
+            $error_password_confirmation = "The passwords you entered did not match.";
+        }
+        //if no errors exist
+        if (empty($error_username) && empty($error_password) && empty($error_password_confirmation)) {
+            //register new admin
+            add_admin($username, $password);
+            //go to admin home
+            header("Location: zua-admin.php");
+        }
+    }
+    
+?>
+<?php include 'view/header-admin.php'; ?>
+<main id="admin-login">
+    <h2>Register a new admin user</h2>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div>
+            <label for="username">Username:<sup>*</sup></label>
+            <input type="text" name="username" id="username" autofocus>
+            <span class="error_message"><?php if(!empty($error_username)) echo $error_username; ?></span>
+        </div>
+        <div>
+            <label for="password">Password:<sup>*</sup></label>
+            <input type="password" name="password" id="password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+            <span class="error_message"><?php if(!empty($error_password)) echo $error_password; ?></span>
+        </div>
+        <div>
+            <label for="confirm_password">Confirm Password:<sup>*</sup></label>
+            <input type="password" name="confirm_password" id="confirm_password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+            <span class="error_message"><?php if(!empty($error_password_confirmation)) echo $error_password_confirmation; ?></span>
+        </div>
+        <div>
+            <input type="submit" class="button blue" value="Register">
+        </div>
+        <div>
+            <p><sup>*</sup> Indicates a required field.</p>
+        </div>
+    </form>
+</main>
+<?php include 'view/footer.php'; ?>
