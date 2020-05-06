@@ -1,7 +1,7 @@
 
 <?php
     //start a new session
-     session_start();
+     //session_start();
      require_once('model/admin_db.php');
      require('model/database.php');
      //require('util/valid_admin.php');
