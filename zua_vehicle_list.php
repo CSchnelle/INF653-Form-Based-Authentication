@@ -1,4 +1,4 @@
-<?php include 'view/header-admin.php'; ?>
+<?php require_once('util/valid_admin.php'); ?>
 <main>
     <nav>
         <form action="zua-admin.php" method="get" id="make_selection">
