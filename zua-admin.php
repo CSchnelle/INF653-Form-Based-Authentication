@@ -5,7 +5,8 @@
     require('model/class_db.php');
     require('model/make_db.php');
     //require_once('util/secure_conn.php');
-    //require_once('util/valid_admin.php');
+    require_once('util/valid_admin.php');
+
     session_start();
     $action = filter_input(INPUT_POST, 'action');
     if ($action == NULL) {
@@ -53,14 +54,17 @@
         $types = get_types();
         $classes = get_classes();
         $makes = get_makes();
+        include('view/header-admin.php');
         include('zua_vehicle_list.php');
         include('view/footer.php');
     } else if ($action == 'list_types') {
         $types = get_types();
+        include('view/header-admin.php');
         include('type_list.php');
         include('view/footer.php');
     } else if ($action == 'list_classes') {
         $classes = get_classes();
+        include('view/header-admin.php');
         include('class_list.php');
         include('view/footer.php');
     } else if ($action == 'delete_vehicle') {
@@ -76,7 +80,10 @@
         $type_id = filter_input(INPUT_POST, 'type_id', FILTER_VALIDATE_INT);
         if ($type_id == NULL || $type_id == FALSE) {
             $error = "Missing or incorrect type id.";
+            include('view/header-admin.php');
             include('errors/error.php');
+            include('view/footer.php');
+            
         } else {
             delete_type($type_id);
             header("Location: zua-admin.php?action=list_types");
@@ -85,7 +92,9 @@
         $class_id = filter_input(INPUT_POST, 'class_id', FILTER_VALIDATE_INT);
         if ($class_id == NULL || $class_id == FALSE) {
             $error = "Missing or incorrect class id.";
+            include('view/header-admin.php');
             include('errors/error.php');
+            include('view/footer.php');
         } else {
             delete_class($class_id);
             header("Location: zua-admin.php?action=list_classes");
@@ -93,6 +102,7 @@
     } else if ($action == 'show_add_form') {
         $classes = get_classes();
         $types = get_types();
+        include('view/header-admin.php');
         include('add_vehicle_form.php');
         include('view/footer.php');
     } else if ($action == 'add_vehicle') {
@@ -104,7 +114,9 @@
         $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_INT);
         if ($type_id == NULL || $type_id == FALSE || $class_id == NULL || $class_id == FALSE || $year == NULL || $make == NULL || $model == NULL || $price == NULL ) {
             $error = "Invalid vehicle data. Check all fields and try again.";
+            include('view/header-admin.php');
             include('errors/error.php');
+            include('view/footer.php');
         } else {
             add_vehicle($type_id, $class_id, $year, $make, $model, $price);
             header("Location: zua-admin.php");
@@ -117,6 +129,10 @@
         $class_name = filter_input(INPUT_POST, 'class_name');
         add_class($class_name);
         header("Location: zua-admin.php?action=list_classes");
+    } else ($action == 'logout') {
+        $_SESSION = array();
+        session_destroy();
+        header("Location: zua-login.php");
     }
 ?> 
 
