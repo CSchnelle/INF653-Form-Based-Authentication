@@ -8,7 +8,7 @@
     require('model/class_db.php');
     require('model/make_db.php');
 
-    //Null Coalescing Operator
+    
     $action = filter_input(INPUT_POST, 'action') ?? filter_input(INPUT_GET, 'action') ?? 'list_vehicles';
 
     switch ($action) {
