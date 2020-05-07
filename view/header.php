@@ -22,9 +22,9 @@
             ?>
                 <p>
                     <a href="register.php">Register</a>
-                   
+                   <br>
                     <a href="zua-login.php">Admin Login</a>
-                    <a href="zua-register.php">Register Admin </a>
+                    
                 </p>
             <?php } else { 
                 $userid = $_SESSION['userid'];
